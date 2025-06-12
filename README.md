@@ -9,4 +9,10 @@
 ![image](https://github.com/user-attachments/assets/2e4137e9-90af-4ac9-bf12-790ae1fe5b23)
 ![image](https://github.com/user-attachments/assets/ee50d63b-2b9d-46e8-b166-ac6b8a8aeb90)
 ![image](https://github.com/user-attachments/assets/2c223416-afe8-4c06-83d1-5097e6babf9a)
-
+Web Sitesine Ait Ekran Kaydı
+Geliştirilen web sitesinin işlevselliğini ve kullanıcı arayüzünü daha etkili bir şekilde
+sunmak amacıyla bir ekran kaydı alınmıştır. Bu kayıt, sistemin çalışma prensibini ve
+uygulamanın kullanıcı ile etkileşimini görsel olarak desteklemektedir.
+İlgili ekran kaydına aşağıdaki bağlantıdan erişilebilir:
+Video Bağlantısı:
+https://drive.google.com/file/d/1T4Z7_OIG6p318Gp1vsZbusvdrDvx2_M/view?usp=sharing

@@ -1,0 +1,10 @@
+tbody {
+  border-collapse: collapse;
+}
+
+td {
+  padding: 8px;
+  border: 1px solid #ddd;
+  text-align: center;
+  background-color: #eaf6ff; /* Renk kodunu istediğiniz renkle değiştirin */
+}

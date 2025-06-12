@@ -1,0 +1,187 @@
+-- Geçici tabloları temizle
+IF OBJECT_ID('tempdb..#TempJobInfo') IS NOT NULL
+    DROP TABLE #TempJobInfo;
+
+IF OBJECT_ID('tempdb..##TempPerformanceMonitor') IS NOT NULL
+    DROP TABLE ##TempPerformanceMonitor;
+
+IF OBJECT_ID('tempdb..#TempJobDates') IS NOT NULL
+    DROP TABLE #TempJobDates;
+
+-- Geçici tablo oluştur
+CREATE TABLE #TempJobInfo
+(
+    JobName NVARCHAR(255),
+    StartDateTime DATETIME,
+    EndDateTime DATETIME
+)
+
+
+CREATE TABLE #TempJobDates
+(
+	JobName NVARCHAR(255),
+    StartTime DATETIME,
+    EndTime DATETIME
+)
+-- Distinct JobName'leri al
+INSERT INTO #TempJobInfo (JobName)
+SELECT DISTINCT JobName
+FROM DOCjobStatus
+
+DECLARE @True bit;
+DECLARE @False bit;
+SET @True = 1;
+SET @False = 0;
+
+
+-- Geçici tablo :TempPerformanceMonitor
+DECLARE @SqlQuery NVARCHAR(MAX)
+SET @SqlQuery = '
+CREATE TABLE ##TempPerformanceMonitor  
+(InstanceID INT,
+    CreateDate DATETIME,
+    [page life expectancy] INT,
+    [% privileged time] FLOAT,
+    [transactions/sec] FLOAT,
+    [write transactions/sec] FLOAT,
+    [logical connections] INT,
+'
+-- Use a cursor to fetch job names
+DECLARE jobCursor CURSOR FOR
+SELECT name FROM msdb.dbo.sysjobs
+--select * from msdb.dbo.sysjobs
+OPEN jobCursor
+DECLARE @JobName NVARCHAR(MAX)
+DECLARE @IsFirstJob BIT
+SET @IsFirstJob = 1
+
+FETCH NEXT FROM jobCursor INTO @JobName
+WHILE @@FETCH_STATUS = 0
+BEGIN
+    IF @IsFirstJob = 1
+    BEGIN
+        SET @SqlQuery = @SqlQuery + '  ' + QUOTENAME(@JobName) + ' INT DEFAULT 0'
+        SET @IsFirstJob = 0
+    END
+    ELSE
+    BEGIN
+        SET @SqlQuery = @SqlQuery + ',' + CHAR(13) + CHAR(10) + '  ' + QUOTENAME(@JobName) + ' INT DEFAULT 0'
+    END
+
+    FETCH NEXT FROM jobCursor INTO @JobName
+END
+
+CLOSE jobCursor
+DEALLOCATE jobCursor
+
+-- Complete the query
+SET @SqlQuery = @SqlQuery + '
+)
+'
+
+-- Print or execute the generated query
+PRINT @SqlQuery
+EXEC sp_executesql @SqlQuery
+
+INSERT INTO ##TempPerformanceMonitor (InstanceID,CreateDate,[page life expectancy],[% privileged time],[transactions/sec],[write transactions/sec],[logical connections])
+SELECT DOCperformanceMonitor.InstanceID,
+	   DOCperformanceMonitor.CreateDate,
+	   DOCperformanceMonitor.[page life expectancy],
+	   DOCperformanceMonitor.[% privileged time],
+	   DOCperformanceMonitor.[transactions/sec],
+	   DOCperformanceMonitor.[write transactions/sec],
+	   DOCperformanceMonitor.[logical connections]
+FROM DOCperformanceMonitor
+
+
+
+--
+DECLARE @CurrentJobName NVARCHAR(255)
+
+DECLARE JobCursor CURSOR FOR
+SELECT JobName
+FROM #TempJobInfo
+
+OPEN JobCursor
+FETCH NEXT FROM JobCursor INTO @CurrentJobName
+
+WHILE @@FETCH_STATUS = 0
+BEGIN
+	--select * from DOCjobStatus where JobName = @CurrentJobName 
+    DECLARE @hour INT
+    DECLARE @minute INT
+    DECLARE @second INT
+
+    DECLARE @BaslangicTarihi DATETIME
+    DECLARE @BitisTarihi DATETIME
+
+    -- İlgili JobName için Duration'dan bilgileri al
+    SELECT 
+        @second = RIGHT(REPLACE(Duration, ':', ''), 2),
+        @minute = SUBSTRING(REPLACE(Duration, ':', ''), 4, 2),
+        @hour = SUBSTRING(REPLACE(Duration, ':', ''), 0, 4)
+    FROM dpAudit..DOCjobStatus (NOLOCK)
+    WHERE JobName = @CurrentJobName
+	INSERT INTO #TempJobDates (JobName, StartTime, EndTime)
+	--select* from  #TempJobDates
+    SELECT 
+        @CurrentJobName,
+        TimeRun,
+        DATEADD(SECOND, @second, DATEADD(MINUTE, @minute, DATEADD(HOUR, @hour, TimeRun)))
+    FROM dpAudit..DOCjobStatus (NOLOCK)
+    WHERE JobName = @CurrentJobName --and  Duration != '000:00:00'
+
+DECLARE @ColumnName NVARCHAR(255)
+SET @ColumnName = @CurrentJobName
+
+DECLARE @casewhen NVARCHAR(MAX);
+SET @casewhen ='CASE ';
+
+-- Cursor ile msdb.dbo.sysjobs tablosunu dolaşma
+DECLARE jobCursor2 CURSOR FOR
+
+SELECT name FROM msdb.dbo.sysjobs;
+
+OPEN jobCursor2;
+
+--DECLARE @JobName NVARCHAR(MAX);
+FETCH NEXT FROM jobCursor2 INTO @JobName;
+-- @casewhen değişkenine CASE WHEN ifadelerini ekleme
+WHILE @@FETCH_STATUS = 0
+BEGIN
+    SET @casewhen = @casewhen + '
+            WHEN ('+ QUOTENAME(@ColumnName) +'= ' + QUOTENAME(@JobName, '') + ' ) THEN 1'--+ CAST(@True as INT)     --+ QUOTENAME(@JobName) 
+			+ 
+			'
+        ';
+
+    FETCH NEXT FROM jobCursor2 INTO @JobName;
+END
+
+CLOSE jobCursor2;
+DEALLOCATE jobCursor2;
+
+-- Son virgülü kaldırma
+SET @casewhen = LEFT(@casewhen, LEN(@casewhen) - 1);
+
+set @casewhen =  @casewhen + ' ELSE 0 END'-- + CAST(@False as INT)  +' END'
+
+
+
+DECLARE @UpdateStatement NVARCHAR(MAX)
+SET @UpdateStatement = 'UPDATE j1 SET j1.' +  @ColumnName + ' =  ' +@casewhen +' FROM ##TempPerformanceMonitor j1 (NOLOCK)
+JOIN #TempJobDates j2 ON j1.CreateDate BETWEEN j2.StartTime AND j2.EndTime AND j2.JobName = ''' + @ColumnName+'''';
+print @UpdateStatement
+-- UPDATE ifadesini çalıştırma
+EXEC sp_executesql @UpdateStatement;
+-- Sonucu yazdırma veya çalıştırma
+
+FETCH NEXT FROM JobCursor INTO @CurrentJobName
+END
+
+CLOSE JobCursor
+DEALLOCATE JobCursor
+
+-- Sonuçları göster
+SELECT * FROM ##TempPerformanceMonitor 
+--where dbaHCDOC =1 and  dbaMaintenanceReIndex = 0

@@ -1,0 +1,48 @@
+.dropzone {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: 4px dashed rgb(76, 83, 177);
+    padding: 20px;
+    margin: 10px auto;
+    width: 80%;
+  }
+  
+  h1 {
+    font-size: 26px;
+    margin-bottom: 40px;
+    font-family: "Arial", sans-serif;
+    font-weight: bold;
+    word-wrap: break-word; /* Uzun metinleri iki satıra bölmek için */
+    text-align: center; /* Metni ortalamak için */
+  }
+  
+  @media (max-width: 768px) {
+    .dropzone {
+      margin: 50px auto;
+      width: 90%;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .dropzone {
+      margin: 20px auto;
+      width: 100%;
+    }
+  }
+  
+  @media (max-width: 768px) {
+    h1 {
+      font-size: 20px;
+      margin-bottom: 16px;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    h1 {
+      font-size: 14px;
+      margin-bottom: 12px;
+    }
+  }
+  

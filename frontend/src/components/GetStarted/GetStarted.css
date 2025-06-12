@@ -1,0 +1,46 @@
+@media (max-width: 768px) {
+    h1 {
+      font-size: 1.2rem;
+    }
+  
+    h3 {
+      font-size: 1rem;
+    }
+  
+    Button {
+      font-size: 0.8rem;
+    }
+  }
+  
+  @media (max-width: 576px) {
+    h1 {
+      font-size: 1rem;
+    }
+  
+    h3 {
+      font-size: 0.8rem;
+    }
+  
+    Button {
+      font-size: 0.6rem;
+    }
+  }
+  
+  @media (max-width: 375px) {
+    h1 {
+      font-size: 0.8rem;
+    }
+  
+    h3 {
+      font-size: 0.6rem;
+    }
+  
+    Button {
+      font-size: 0.4rem;
+    }
+  }
+  @media screen and (max-width: 375px) {
+    .small-screen-img {
+      display: none;
+    }
+  }

@@ -1,0 +1,12 @@
+.carousel-slide {
+    color: #fff;
+    text-align: center;
+    background: #f5f4f4;
+  }
+  
+  @media (max-width: 768px) {
+    .carousel-slide {
+      height: 200px;
+      line-height: 200px;
+    }
+  }

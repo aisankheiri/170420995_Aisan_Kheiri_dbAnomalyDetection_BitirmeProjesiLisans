@@ -26,3 +26,7 @@ dist-ssr
 **/second_venv/  
 **/node_modules/
 *.env
+
+
+
+hello-ngrok/

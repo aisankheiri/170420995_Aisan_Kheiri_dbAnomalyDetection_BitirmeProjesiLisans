@@ -54,6 +54,7 @@ Sistemin canlı kaydını buradan izleyebilirsiniz:
 https://drive.google.com/file/d/1MP7VI-LmR7-OjoF7gMRPKUPKU74YJdVE/view?usp=sharing
 
 👥 Proje Ekibi
+
 Aisan KHEIRI
 
 Kaan Kürşat KILIÇ

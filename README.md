@@ -1,8 +1,41 @@
-Bu çalışma, veri tabanı sistemlerinde ortaya çıkabilecek olası sorunları önceden tespit
-ederek, otomatik müdahale mekanizmaları geliştirmeyi hedeflemektedir. Bu doğrultuda,
-makine öğrenimi ve derin öğrenme tabanlı anomali tespit yöntemleri kullanılmaktadır.
+📊 Veritabanlarında Anomali Tespiti ve Erken Müdahale Sistemi
+Bu proje, makine öğrenmesi (ML) ve derin öğrenme (DL) algoritmalarını kullanarak veritabanlarında oluşabilecek aykırılıkların (anomalilerin) otomatik olarak tespit edilmesini ve gerekli müdahalelerin sistem tarafından gerçekleştirilmesini amaçlamaktadır.
 
+🎯 Proje Amacı
+Veritabanı sistemlerinde meydana gelen anormallikleri erken aşamada tespit etmek.
 
+Otomatik karar destek sistemiyle sunucu tarafında proaktif aksiyonlar almak.
+
+Kullanıcının model eğitimi sürecine dahil olabileceği web tabanlı bir analiz aracı geliştirmek.
+
+⚙️ Kullanılan Teknolojiler
+Backend: Python, Flask, MSSQL Server
+
+Frontend: React.js, Ant Design
+
+Modelleme: Random Forest, SVM, KNN, LSTM, RNN
+
+Veri Görselleştirme ve Raporlama: Matplotlib, FPDF
+
+Bildirim Sistemi: Telegram Bot API
+
+🧠 Yapay Zeka Modelleri
+Makine Öğrenmesi: Sınıflandırma algoritmaları ile anormallik seviyesi belirleme (örneğin: PLE < 300 kritik durum).
+
+Derin Öğrenme: LSTM ve RNN ile zaman serisi temelli tahminleme.
+
+AutoML: Hiperparametre optimizasyonu ile model seçimi otomatik yapılabilmektedir.
+
+🌐 Web Platformu Özellikleri
+Kullanıcı girişi ve rol tabanlı erişim
+
+Veri yükleme, model seçimi, hiperparametre tanımı
+
+Anlık doğruluk bildirimleri (Telegram entegrasyonu)
+
+Otomatik PDF raporlama
+
+Admin paneli ve kullanıcı yönetimi
 ![image](https://github.com/user-attachments/assets/1a19ebd3-b6ec-4977-8309-f5388c06d41b)
 ![image](https://github.com/user-attachments/assets/50e61cea-8b27-47ec-a5a4-a04fd31ef785)
 ![image](https://github.com/user-attachments/assets/8f9eb23b-6efd-432d-b50e-a14201567629)

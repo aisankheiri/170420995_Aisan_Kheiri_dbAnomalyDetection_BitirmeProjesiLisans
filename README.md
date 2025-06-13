@@ -2,7 +2,8 @@ Bu çalışma, veri tabanı sistemlerinde ortaya çıkabilecek olası sorunları
 ederek, otomatik müdahale mekanizmaları geliştirmeyi hedeflemektedir. Bu doğrultuda,
 makine öğrenimi ve derin öğrenme tabanlı anomali tespit yöntemleri kullanılmaktadır.
 
-![image](https://github.com/user-attachments/assets/736d6c5f-e639-4a43-a834-af9308fc9d97)![image](https://github.com/user-attachments/assets/1a19ebd3-b6ec-4977-8309-f5388c06d41b)
+
+![image](https://github.com/user-attachments/assets/1a19ebd3-b6ec-4977-8309-f5388c06d41b)
 ![image](https://github.com/user-attachments/assets/50e61cea-8b27-47ec-a5a4-a04fd31ef785)
 ![image](https://github.com/user-attachments/assets/8f9eb23b-6efd-432d-b50e-a14201567629)
 ![image](https://github.com/user-attachments/assets/d1128143-c9ca-4801-b3a0-59f245804f13)

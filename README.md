@@ -55,5 +55,7 @@ https://drive.google.com/file/d/1MP7VI-LmR7-OjoF7gMRPKUPKU74YJdVE/view?usp=shari
 
 👥 Proje Ekibi
 Aisan KHEIRI
+
 Kaan Kürşat KILIÇ
+
 Danışman: Doç. Dr. Buket DOĞAN

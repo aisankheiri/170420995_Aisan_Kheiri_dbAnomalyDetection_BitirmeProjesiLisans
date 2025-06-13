@@ -15,4 +15,4 @@ sunmak amacıyla bir ekran kaydı alınmıştır. Bu kayıt, sistemin çalışma
 uygulamanın kullanıcı ile etkileşimini görsel olarak desteklemektedir.
 İlgili ekran kaydına aşağıdaki bağlantıdan erişilebilir:
 Video Bağlantısı:
-https://drive.google.com/file/d/1T4Z7_OIG6p318Gp1vsZbusvdrDvx2_M/view?usp=sharing
+https://drive.google.com/file/d/1MP7VI-LmR7-OjoF7gMRPKUPKU74YJdVE/view?usp=sharing

@@ -1,4 +1,3 @@
-ÖZET
 Bu çalışma, veri tabanı sistemlerinde ortaya çıkabilecek olası sorunları önceden tespit
 ederek, otomatik müdahale mekanizmaları geliştirmeyi hedeflemektedir. Bu doğrultuda,
 makine öğrenimi ve derin öğrenme tabanlı anomali tespit yöntemleri kullanılmaktadır.
